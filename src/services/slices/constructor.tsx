@@ -1,10 +1,9 @@
 import {
   PayloadAction,
-  createAsyncThunk,
   createSlice,
   nanoid
 } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient } from '@utils-types';
+import { TConstructorIngredient } from '@utils-types';
 
 type TConstructorState = {
   bun: TConstructorIngredient | null;
@@ -29,8 +28,8 @@ export const constructorSlice = createSlice({
         }
       },
       prepare: (ingredient: TConstructorIngredient) => {
-        const key = nanoid();
-        return { payload: { ...ingredient, key } };
+        const id = nanoid();
+        return { payload: { ...ingredient, id } };
       }
     },
     deleteItem: (state, action: PayloadAction<TConstructorIngredient>) => {
