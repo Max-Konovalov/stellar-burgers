@@ -1,11 +1,11 @@
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getOrderByNumberApi } from '@api';
-import { Preloader } from '../ui/preloader';
-import { OrderInfoUI } from '../ui/order-info';
+import { Preloader } from '@ui';
+import { OrderInfoUI } from '@ui';
 import { TIngredient, TOrder } from '@utils-types';
-import { useDispatch, useSelector } from '../../services/store';
-import { getIngredients } from '../../services/slices/Ingredients';
+import { useSelector } from '../../services/store';
+import { getIngredients } from '../../services/slices/ingredients/Ingredients';
 
 export const OrderInfo: FC = () => {
   const [orderData, setOrderData] = useState<TOrder>({

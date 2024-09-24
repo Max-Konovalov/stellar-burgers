@@ -22,8 +22,8 @@ import {
 import { ProtectedRoute } from '../protected-route';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { getIngredientsList } from '../../services/slices/Ingredients';
-import { apiGetUser } from '../../services/slices/user';
+import { getIngredientsList } from '../../services/slices/ingredients/Ingredients';
+import { apiGetUser } from '../../services/slices/user/user';
 
 const App = () => {
   const dispatch = useDispatch();
