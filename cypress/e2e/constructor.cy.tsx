@@ -1,10 +1,12 @@
 import * as cypress from 'cypress';
 
+const modalsSelector = '#modals';
+
 describe('тесты e2e для главной страницы и модалки', function () {
   beforeEach(() => {
     cy.intercept('GET', '/api/ingredients', { fixture: 'ingredients.json' });
     cy.intercept('GET', '/api/auth/user', { fixture: 'user.json' });
-    cy.visit('http://localhost:4000');
+    cy.visit('');
   });
 
   afterEach(() => {
@@ -38,31 +40,31 @@ describe('тесты e2e для главной страницы и модалк�
   });
 
   it('проверка модального окна: отсутствие', function () {
-    cy.get('#modals').children().should('have.length', 0);
+    cy.get(modalsSelector).children().should('have.length', 0);
   });
 
   it('проверка модального окна: открытие', function () {
     cy.contains('Соус фирменный Space Sauce').click();
-    cy.get('#modals').children().should('have.length', 2);
-    cy.get('#modals').contains('Соус фирменный Space Sauce');
+    cy.get(modalsSelector).children().should('have.length', 2);
+    cy.get(modalsSelector).contains('Соус фирменный Space Sauce');
   });
 
   it('проверка модального окна: закрытие по кнопке', function () {
     cy.contains('Соус фирменный Space Sauce').click();
-    cy.get('#modals').find('button').click();
-    cy.get('#modals').children().should('have.length', 0);
+    cy.get(modalsSelector).find('button').click();
+    cy.get(modalsSelector).children().should('have.length', 0);
   });
 
   it('проверка модального окна: закрытие по esc', function () {
     cy.contains('Соус фирменный Space Sauce').click();
     cy.get('body').type('{esc}');
-    cy.get('#modals').children().should('have.length', 0);
+    cy.get(modalsSelector).children().should('have.length', 0);
   });
 
   it('проверка модального окна: закрытие по overlay click', function () {
     cy.contains('Соус фирменный Space Sauce').click();
     cy.get('#overlay').click({ force: true });
-    cy.get('#modals').children().should('have.length', 0);
+    cy.get(modalsSelector).children().should('have.length', 0);
   });
 });
 
@@ -72,7 +74,7 @@ describe('тесты e2e оформление заказа', function () {
     cy.intercept('POST', '/api/auth/login', { fixture: 'user.json' });
     cy.intercept('GET', '/api/auth/user', { fixture: 'user.json' });
     cy.intercept('POST', '/api/orders', { fixture: 'order.json' });
-    cy.visit('http://localhost:4000');
+    cy.visit('');
     cy.setCookie('accessToken', 'accessToken');
     window.localStorage.setItem('refreshToken', 'refreshToken');
   });
@@ -92,10 +94,10 @@ describe('тесты e2e оформление заказа', function () {
     cy.get('@sauces').contains('Добавить').click();
 
     cy.contains('Оформить заказ').click();
-    cy.get('#modals').children().should('have.length', 2);
-    cy.get('#modals').find('h2').contains(41975);
+    cy.get(modalsSelector).children().should('have.length', 2);
+    cy.get(modalsSelector).find('h2').contains(41975);
     cy.get('body').type('{esc}');
-    cy.get('#modals').children().should('have.length', 0);
+    cy.get(modalsSelector).children().should('have.length', 0);
 
     cy.get('.text_type_main-default').contains('Выберите булки');
     cy.get('.text_type_main-default').contains('Выберите начинку');
